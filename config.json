@@ -1,0 +1,7 @@
+{
+  "username": "username",
+  "password": "senha",
+  "search": ["#hashtag", "#hashtag2", "#datascience"],
+  "action": ["gm", "gn", "like_tweets", "follow"],
+  "cycles": 10
+}
