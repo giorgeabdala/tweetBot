@@ -101,34 +101,34 @@ async function startBot() {
    }
 }
 
-async function start() {
+async function run() {
    try {
       props.search = config.search[Math.floor(Math.random() * config.search.length)]
-      props.cycle = Math.floor(Math.random() * config.cycles + 1)
+      props.cycles = Math.floor(Math.random() * config.cycles + 1)
       props.action = config.action[Math.floor(Math.random() * config.action.length)]
       run = Math.random() >= 0.5;
 
-      if (run) {
+      if (run)
          await startBot()
-      }
-        await awaitAndStart()
+
+      await waitAndRun()
    }
     catch (error) {
       console.log(error)
-       await awaitAndStart()
+       await waitAndRun()
     }
 }
 
-async function awaitAndStart() {
+async function waitAndRun() {
    console.log('sleeping for 3 hours')
     setTimeout(async function() {
-         await start();
+         await run();
       },
       10800000);
 }
 
 
-start().then(r =>  console.log(r))
+run().then(r =>  console.log(r))
 
 
 
