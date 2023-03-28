@@ -17,7 +17,7 @@ class TwitterBot {
       const { ...rest } = options
 
       this.browser = await chromium.launch({
-         headless: false,
+         headless: true,
          ...rest,
       })
       this.context = await this.browser.newContext({

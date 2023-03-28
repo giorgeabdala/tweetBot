@@ -124,7 +124,7 @@ async function waitAndRun() {
     setTimeout(async function() {
          await run();
       },
-      10800000);
+      60*60*1000*12);
 }
 
 

@@ -1,7 +1,10 @@
 {
-  "username": "username",
+  "username": "user",
   "password": "senha",
-  "search": ["#hashtag", "#hashtag2", "#datascience"],
+  "search": ["kusama", "polkadot", "substrate", "acala", "subsocial", "ethereum", "bitcoin", "karura", "kilt","moonriver", "moonbeam", "moonbase", "edgeware", "clover","rmrk", "phala"],
   "action": ["gm", "gn", "like_tweets", "follow"],
   "cycles": 10
+
+
 }
+
