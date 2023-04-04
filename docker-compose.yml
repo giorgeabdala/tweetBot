@@ -1,0 +1,7 @@
+version: '3'
+services:
+  twweetbot:
+    build: .
+    volumes:
+      - ./src:/app/src
+    restart: always
