@@ -1,0 +1,13 @@
+   # Instalar pm2: npm install pm2 -g
+   # Rodar no pm2 com os comandos abaixo:
+   # pm2 start myface.yml
+   # pm2 save
+   # pm2 startup
+   
+   
+   apps:
+    - script: index.js
+      name: tweetBot
+      restart_delay: 60000
+      log_date_format: 'YYYY-MM-DD HH:mm Z'
+
