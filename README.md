@@ -1,8 +1,9 @@
 # 🕊 Twitter Engagement Bot
 
-A bot that automatically likes tweets that contain certain keywords, replies to tweets, and replies random Gm and Gn to tweets and much more...
+Simple study project that integrates playwright and Openai's GPT api to make a Bot that responds and likes some tweets automatically.
+Project carried out as a form of study, without following good practices.
 
-
+A bot that automatically likes tweets that contain certain keywords, replies to tweets, and random replies.
 
 ## 🧪 Setup
  
@@ -14,7 +15,7 @@ A bot that automatically likes tweets that contain certain keywords, replies to 
 
 ## 📐 Configuration
 
-The bot is configured using config.json:
+The bot is configured using .env and config.json:
 
 * `username` - The username of the account to use (optional)
 * `password` - The password of the account to use (optional)

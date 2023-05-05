@@ -17,7 +17,7 @@ class TwitterBot {
       const { ...rest } = options
 
       this.browser = await chromium.launch({
-         headless: true,
+         headless: false,
          ...rest,
       })
       this.context = await this.browser.newContext({
@@ -264,6 +264,26 @@ class TwitterBot {
    async close() {
       await this.browser.close()
    }
+
+   async  getTextFromTweet() {
+      const page = this.page;
+       // Aguarde a div com o atributo data-testid="tweetText" carregar
+       await page.waitForSelector('[data-testid="tweetText"]');
+       // Extraia o texto do tweet
+       const tweetText = await page.$eval('[data-testid="tweetText"]', (div) => div.innerText);
+       return tweetText;
+   }
+
+
+   async getReply() {
+      const content = await this.getTextFromTweet();
+      console.log("Replly on tweeter: " + content);
+      return fetchGPTChat(content);
+   }
+
+
+
+
 }
 
 module.exports = TwitterBot

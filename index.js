@@ -44,7 +44,7 @@ async function startBot() {
             await bot.performMultipleTweetActions(cycles, {
                like: true,
                reply: true,
-               getReply: () => bot.getRandomGm(),
+               getReply: () => bot.getReply(),
             })
             break
          case 'gn':
@@ -54,7 +54,7 @@ async function startBot() {
             await bot.performMultipleTweetActions(cycles, {
                like: true,
                reply: true,
-               getReply: () => bot.getRandomGn(),
+               getReply: () => bot.getReply(),
             })
             break
          case 'like_tweets':
@@ -106,12 +106,13 @@ async function run() {
       props.search = config.search[Math.floor(Math.random() * config.search.length)]
       props.cycles = Math.floor(Math.random() * config.cycles + 1)
       props.action = config.action[Math.floor(Math.random() * config.action.length)]
-      run = Math.random() >= 0.5;
+      const execute = Math.random() >= 0.5;
 
-      if (run)
+      if (execute)
          await startBot()
 
       await waitAndRun()
+
    }
     catch (error) {
       console.log(error)
@@ -123,12 +124,11 @@ async function waitAndRun() {
    console.log('sleeping for 12 hours')
     setTimeout(async function() {
          await run();
-      },
-      60*60*1000*12);
+      }, 1000);
 }
 
 
-run().then(r =>  console.log(r))
+run().then(r => console.log('done'));
 
 
 

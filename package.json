@@ -13,6 +13,8 @@
   "dependencies": {
     "chalk": "4",
     "inquirer": "^8.0.0",
+    "node-fetch": "^2.6.9",
+    "openai": "^3.2.1",
     "ow": "0.24.1",
     "playwright": "^1.27.1",
     "prettier": "^2.6.2"
