@@ -1,10 +1,6 @@
 {
-  "username": "user",
-  "password": "senha",
   "search": ["kusama", "polkadot", "substrate", "acala", "subsocial", "ethereum", "bitcoin", "karura", "kilt","moonriver", "moonbeam", "moonbase", "edgeware", "clover","rmrk", "phala"],
   "action": ["gm", "gn", "like_tweets", "follow"],
   "cycles": 10
-
-
 }
 

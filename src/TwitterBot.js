@@ -2,6 +2,7 @@ const { default: ow } = require('ow')
 const { chromium } = require('playwright')
 const { logError, logInfo, logSuccess } = require('./utils/chalk')
 const { randIntFromInterval } = require('./utils/number')
+const {fetchGPTChat} = require('./fetchChatGpt')
 
 /**
  * Class representing a Twitter bot.
@@ -90,11 +91,10 @@ class TwitterBot {
     * @param {Number} cycles - Number of cycles to perform the action.
     * @param {Object} options - Options to configure the action.
     * @param {Boolean} [options.like] - Whether to like the tweet or not.
-    * @param {Boolean} [options.reply] - Whether to reply to the tweet or not.
-    * @param {Function} [options.getReply] - A function to generate the reply.
+
     * @returns {Promise} Promise that resolves when the action is completed.
     */
-   async performMultipleTweetActions(cycles, { like, reply, getReply, follow }) {
+   async performMultipleTweetActions(cycles, { like, reply, follow }) {
       // Validate params
       ow(cycles, ow.number.greaterThan(0))
 
@@ -122,7 +122,7 @@ class TwitterBot {
                // Open the tweet to reply
                await this.openTweet(notLikedTweet)
                // Send the reply
-               await this.replyToOpenedTweet(getReply())
+               await this.replyToOpenedTweet()
                // Wait for the reply to be sent
                await this.page.waitForTimeout(3000)
                // Get back
@@ -136,23 +136,6 @@ class TwitterBot {
             await this.scrollToBottom()
          }
       }
-   }
-
-   getRandomGn = () => {
-      const GNs = ['Good', 'good', 'Gooood', 'hmmm...', 'cool..']
-      //smiles sorrindo
-      const hearts = [':)']
-      const [randomGN, randomHeart] = [GNs, hearts].map(
-         (array) => array[Math.floor(Math.random() * array.length)]
-      )
-
-      // 56% chance to add a heart
-      return `${randomGN}${Math.random() > 0.5 ? randomHeart : ''}`
-   }
-
-   getRandomGm = () => {
-      return this.getRandomGn()
-
    }
 
    /**
@@ -212,12 +195,13 @@ class TwitterBot {
    }
 
    // Reply to opened tweet
-   async replyToOpenedTweet(reply) {
+   async replyToOpenedTweet() {
+      const reply = await this.getReply();
       logInfo('Reply to tweet: ' + reply)
       // CLick reply textarea
       await this.page.click('div[data-contents="true"]')
       // Type the reply
-      await this.page.keyboard.type(reply)
+      await this.page.keyboard.type( reply)
       await this.page.$('div[data-testid="tweetButtonInline"]').then(async (el) => {
          await el.click()
       })
@@ -270,15 +254,16 @@ class TwitterBot {
        // Aguarde a div com o atributo data-testid="tweetText" carregar
        await page.waitForSelector('[data-testid="tweetText"]');
        // Extraia o texto do tweet
-       const tweetText = await page.$eval('[data-testid="tweetText"]', (div) => div.innerText);
-       return tweetText;
+       return await page.$eval('[data-testid="tweetText"]', (div) => div.innerText);
    }
 
 
    async getReply() {
       const content = await this.getTextFromTweet();
-      console.log("Replly on tweeter: " + content);
-      return fetchGPTChat(content);
+      console.log("tweeter: " + content);
+      const reply = await fetchGPTChat(content);
+      console.log("reply: " + reply);
+      return reply;
    }
 
 
