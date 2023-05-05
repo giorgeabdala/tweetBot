@@ -1,3 +1,4 @@
+require('dotenv').config()
 const inquirer = require('inquirer')
 const { logError, logSuccess } = require('./src/utils/chalk')
 const TwitterBot = require('./src/TwitterBot')
@@ -8,8 +9,8 @@ let props = {
     action: config.action,
     cycles: config.cycles,
     search: config.search,
-    username: config.username,
-   password: config.password
+    username: process.env.TWITTER_USERNAME,
+   password: process.env.TWITTER_PASSWORD,
 }
 
 async function createBot()  {
@@ -24,8 +25,8 @@ async function createBot()  {
 }
 
 async function startBot() {
+   const bot = await createBot()
    try {
-      const bot = await createBot()
       const cycles = props.cycles
 
       // Save storage state to "storage.json"
@@ -44,7 +45,7 @@ async function startBot() {
             await bot.performMultipleTweetActions(cycles, {
                like: true,
                reply: true,
-               getReply: () => bot.getReply(),
+               follow: true,
             })
             break
          case 'gn':
@@ -54,7 +55,7 @@ async function startBot() {
             await bot.performMultipleTweetActions(cycles, {
                like: true,
                reply: true,
-               getReply: () => bot.getReply(),
+               follow: true,
             })
             break
          case 'like_tweets':
@@ -73,7 +74,7 @@ async function startBot() {
             await bot.performMultipleTweetActions(cycles, {
                like: true,
                reply: true,
-               getReply: () => props.reply,
+               follow: true,
             })
             break
          default:
@@ -81,14 +82,14 @@ async function startBot() {
             process.exit(1)
             break
       }
-
       logSuccess(`Done! ${cycles} actions performed`)
 
       // Close the browser
       await bot.close()
 
 
-   } catch (error) {
+   } catch (error ) {
+      await bot.close()
       if (error.isTtyError) {
          // Prompt couldn't be rendered in the current environment
          logError(`Prompt couldn't be rendered in the current environment`)
@@ -96,8 +97,6 @@ async function startBot() {
          // Something else when wrong
          logError(`Something went wrong: ${error}`)
       }
-
-
    }
 }
 
@@ -107,7 +106,6 @@ async function run() {
       props.cycles = Math.floor(Math.random() * config.cycles + 1)
       props.action = config.action[Math.floor(Math.random() * config.action.length)]
       const execute = Math.random() >= 0.5;
-
       if (execute)
          await startBot()
 
@@ -123,8 +121,7 @@ async function run() {
 async function waitAndRun() {
    console.log('sleeping for 12 hours')
     setTimeout(async function() {
-         await run();
-      }, 1000);
+         await run()}, 1000);
 }
 
 

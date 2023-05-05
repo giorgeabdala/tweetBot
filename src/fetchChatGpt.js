@@ -9,7 +9,7 @@ const endpoint = "https://api.openai.com/v1/completions";
 
 // Função para se conectar à API do chat GPT
 async function fetchGPTChat(input) {
-  input = "Diga algo para eu escrever como resposta para esse twetter, responda na mesma lingua que o twetter foi escrito: " + input;
+  input = "Uma frase curta para responder o seguinte tweeter(responda na mesma lingua que o tweeter foi escrito): " + input;
 
   const response = await fetch(endpoint, {
     method: 'POST',
@@ -28,9 +28,10 @@ async function fetchGPTChat(input) {
     throw new Error("Falha ao se conectar à API do chat GPT" + response.statusText);
   }
 
-  const data = await response.json();
-  const reply = data.choices[0].text;
-  return reply;
+   const data = await response.json();
+   const reply = data.choices[0].text;
+   return reply.replace(/{|}/g, '');
+
 }
 
 
