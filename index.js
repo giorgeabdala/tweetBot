@@ -120,7 +120,7 @@ async function run() {
 async function waitAndRun() {
    console.log('sleeping for 12 hours')
     setTimeout(async function() {
-         await run()}, 1000);
+         await run()}, 60*60*6*1000)
 }
 
 
