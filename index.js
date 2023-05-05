@@ -1,5 +1,4 @@
 require('dotenv').config()
-const inquirer = require('inquirer')
 const { logError, logSuccess } = require('./src/utils/chalk')
 const TwitterBot = require('./src/TwitterBot')
 
