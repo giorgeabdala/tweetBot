@@ -44,7 +44,7 @@ async function startBot() {
             await bot.performMultipleTweetActions(cycles, {
                like: true,
                reply: true,
-               follow: true,
+               follow: false,
             })
             break
          case 'gn':
@@ -54,7 +54,7 @@ async function startBot() {
             await bot.performMultipleTweetActions(cycles, {
                like: true,
                reply: true,
-               follow: true,
+               follow: false,
             })
             break
          case 'like_tweets':
@@ -73,7 +73,7 @@ async function startBot() {
             await bot.performMultipleTweetActions(cycles, {
                like: true,
                reply: true,
-               follow: true,
+               follow: false,
             })
             break
          default:
