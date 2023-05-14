@@ -105,6 +105,7 @@ async function run() {
       props.cycles = Math.floor(Math.random() * config.cycles + 1)
       props.action = config.action[Math.floor(Math.random() * config.action.length)]
       const execute = Math.random() >= 0.5;
+      console.log("Run: " + execute);
       if (execute)
          await startBot()
 
